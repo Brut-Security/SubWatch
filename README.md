@@ -118,13 +118,6 @@ Join us for practical cybersecurity training, tools, and community.
 
 ---
 
-## 🛡️ Disclaimer
-
-This tool is for **educational and research purposes only**.  
-We are not responsible for any misuse. Use responsibly and always follow legal guidelines.
-
----
-
 ## 📄 License
 
 MIT License — see [LICENSE](LICENSE) for details.  
