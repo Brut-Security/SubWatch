@@ -66,7 +66,12 @@ notify -config
 
 Then add your Discord webhook as a provider and give it the ID `subdomains`.
 
-4. **Make the Script Executable**
+4. **Set Discord webhook**
+```bash
+export DISCORD_WEBHOOK='https://discord.com/api/webhooks/XXX/YYY'
+```
+
+5. **Make the Script Executable**
 
 ```bash
 chmod +x subwatch.sh
