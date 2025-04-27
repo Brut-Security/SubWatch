@@ -94,6 +94,8 @@ To run the script:
   `example.com-list.txt`, `testsite.org-list.txt`, etc.
 - New findings (if any) are sent as `.txt` file attachments to your Discord webhook using `notify`.
 
+![Watch the video](poc.png)
+
 ---
 
 ## 🧠 Example Notification Format
