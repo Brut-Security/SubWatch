@@ -47,10 +47,17 @@ sudo apt install jq
 
 ## ⚙️ Setup Instructions
 
+You must export your Discord Webhook:
+
+```bash
+export DISCORD_WEBHOOK="https://discord.com/api/webhooks/XXXX/XXXX"
+```
+
+
 1. **Clone the Repo**
 
 ```bash
-git clone https://github.com/Brut-Security/subwatch.git
+git clone https://github.com/yourusername/subwatch.git
 cd subwatch
 ```
 
