@@ -57,7 +57,7 @@ export DISCORD_WEBHOOK="https://discord.com/api/webhooks/XXXX/XXXX"
 1. **Clone the Repo**
 
 ```bash
-git clone https://github.com/yourusername/subwatch.git
+git clone https://github.com/Brut-Security/subwatch.git
 cd subwatch
 ```
 
