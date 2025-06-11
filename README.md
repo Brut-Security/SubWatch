@@ -1,30 +1,38 @@
-
 # 🔍 SubWatch – Automated Subdomain Monitoring Script
 
-**SubWatch** is a lightweight Bash script designed to continuously monitor your target domains for newly discovered subdomains. Built for bug bounty hunters, recon specialists, and automation lovers, it leverages powerful tools like `subfinder`, `anew`, and `notify` to keep your recon updated — and sends alerts directly to your Discord.
+**SubWatch** is a lightweight Bash script that automates subdomain monitoring using `subfinder`, `anew`, and `notify`. It scans your target domains every 6 hours and sends newly discovered subdomains as text and file alerts to your **Discord channel** — perfect for bug bounty, red team, and recon workflows.
 
+```bash
+    _____       __  _       __      __       __
+   / ___/__  __/ /_| |     / /___ _/ /______/ /_
+   \__ \/ / / / __ \ | /| / / __ `/ __/ ___/ __ \
+  ___/ / /_/ / /_/ / |/ |/ / /_/ / /_/ /__/ / / /
+ /____/\__,_/_.___/|__/|__/\__,_/\__/\___/_/ /_/
+
+            Made with ❤️ by Brut Security
+```
 ---
 
 ## 📌 Features
 
 - ⏱️ Runs automatically every 6 hours
-- 🧠 Tracks and stores unique subdomains per target
-- 📨 Sends new subdomains as file attachments to Discord
-- ⚙️ Uses `subfinder`, `anew`, `notify`, and `jq`
-- ✅ Simple, lightweight, and effective for long-term monitoring
+- 🧠 Tracks and stores unique subdomains per domain
+- 📨 Sends **text + file notifications to Discord**
+- ⚙️ Uses `subfinder`, `anew`, `jq`, and **`notify`**
+- ✅ Clean, fast, and automation-ready
 
 ---
 
 ## 🛠 Requirements
 
-Make sure the following tools are installed and available in your `$PATH`:
+You must install the following tools before running `SubWatch`:
 
-- [`subfinder`](https://github.com/projectdiscovery/subfinder)
-- [`anew`](https://github.com/tomnomnom/anew)
-- [`notify`](https://github.com/projectdiscovery/notify)
-- [`jq`](https://stedolan.github.io/jq/)
+- [`subfinder`](https://github.com/projectdiscovery/subfinder) – for subdomain enumeration  
+- [`anew`](https://github.com/tomnomnom/anew) – for deduplication  
+- [`jq`](https://stedolan.github.io/jq/) – for parsing JSON  
+- [`notify`](https://github.com/projectdiscovery/notify) – for **Discord notifications (text + file)** ✅
 
-### Installation Example:
+### 🔧 Install Tools via Go and APT:
 
 ```bash
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
@@ -33,45 +41,47 @@ go install -v github.com/projectdiscovery/notify/cmd/notify@latest
 sudo apt install jq
 ```
 
-> Make sure `$GOPATH/bin` is in your `$PATH`.
+> Ensure your `$GOPATH/bin` is in your `$PATH` so all tools work globally.
 
 ---
 
-## ⚙️ Setup
+## ⚙️ Setup Instructions
 
-1. **Clone the Repository**
+1. **Clone the Repo**
 
 ```bash
-git clone https://github.com/yourusername/subwatch.git
+git clone https://github.com/Brut-Security/subwatch.git
 cd subwatch
 ```
 
-2. **Prepare Your Domain List**
+2. **Create `domains.txt`**
 
-Create a `domains.txt` file in the same directory.  
-Each line should contain a single root domain:
+Add target domains (one per line):
 
 ```
 example.com
 testsite.org
 ```
 
-3. **Configure Discord Webhook with Notify**
+3. **Configure `notify` with Discord Webhook**
 
-Set up your `notify` config:
+Run:
 
 ```bash
 notify -config
 ```
 
-Then add your Discord webhook as a provider and give it the ID `subdomains`.
+Add your Discord webhook and **name the provider `subdomains`** (this ID is used by the script).
 
-4. **Set Discord webhook**
-```bash
-export DISCORD_WEBHOOK='https://discord.com/api/webhooks/XXX/YYY'
+Example config snippet:
+
+```yaml
+discord:
+  - id: "subdomains"
+    webhook_url: "https://discord.com/api/webhooks/XXXX/XXXX"
 ```
 
-5. **Make the Script Executable**
+4. **Make the Script Executable**
 
 ```bash
 chmod +x subwatch.sh
@@ -81,30 +91,40 @@ chmod +x subwatch.sh
 
 ## 🚀 Usage
 
-To run the script:
+Run the script:
 
 ```bash
 ./subwatch.sh
 ```
 
-> The script runs in an infinite loop, checking for new subdomains every 6 hours and notifying only when new entries are found.
+> It will continuously run, scanning every 6 hours, and only notify when **new subdomains** are found.
 
 ![Watch the video](poc.gif)
 
 ---
 
-## 📂 Output
+## 📤 Output & Notifications
 
-- Subdomains are saved in individual files:  
-  `example.com-list.txt`, `testsite.org-list.txt`, etc.
-- New findings (if any) are sent as `.txt` file attachments to your Discord webhook using `notify`.
+- Subdomain lists are stored as `<domain>-list.txt`
+- New subdomains (if found) are:
+  - Appended to the list
+  - Saved to a temp `.txt` file
+  - **Sent to Discord using `notify`** as both:
+    - 💬 Message content
+    - 📎 File attachment
 
 ---
 
-## 🧠 Example Notification Format
+## 🧠 Example Alert
 
-> 🚨 New subdomains detected for `example.com` (5):  
-> See attached `.txt` file.
+```
+🚨 New subdomains detected for `example.com` (3):
+• api.example.com
+• dev.example.com
+• staging.example.com
+```
+
+> 📎 A `.txt` file is also sent with full subdomain list for easy access.
 
 ![Watch the video](poc.png)
 
