@@ -75,7 +75,7 @@ testsite.org
 Run:
 
 ```bash
-notify -config
+nano /.config/notify/provider-config.yaml
 ```
 
 Add your Discord webhook and **name the provider `subdomains`** (this ID is used by the script).
