@@ -72,8 +72,6 @@ testsite.org
 
 3. **Configure `notify` with Discord Webhook**
 
-Run:
-
 ```bash
 nano /.config/notify/provider-config.yaml
 ```
